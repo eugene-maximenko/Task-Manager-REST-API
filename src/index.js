@@ -26,3 +26,12 @@ app.use(taskRouter);
 app.listen(port, () => {
     console.log('Server is up on port ' + port);
 });
+
+
+const main = async () => {
+    const task = await Task.findById('60bb0d2326944e161402be74');
+
+    console.log(task.owner);
+}
+
+main();
