@@ -18,7 +18,6 @@ const upload = multer({
             return cb(new Error('Please upload a Word document'));
         }
 
-        console.log(file.originalname.endsWith('.pdf'));
         cb(undefined, true);
     }
 });
