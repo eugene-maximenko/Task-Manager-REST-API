@@ -4,19 +4,6 @@ const User = require('../models/user');
 const auth = require('../middleware/auth');
 const router = new express.Router();
 
-const upload = multer({
-    dest: 'avatars',
-    limits: {
-        fileSize: 1000000
-    },
-    fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-            return cb(new Error('Please upload an image'));
-        }
-
-        cb(undefined, true);
-    }
-});
 
 router.post('/users', async (req, res) => {
     const user = new User(req.body);
@@ -97,7 +84,22 @@ router.delete('/users/me', auth, async (req, res) => {
     }
 })
 
-router.post('/users/me/avatar', upload.single('avatar'), (req, res) => {
+const upload = multer({
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+            return cb(new Error('Please upload an image'));
+        }
+
+        cb(undefined, true);
+    }
+});
+
+router.post('/users/me/avatar', auth, upload.single('avatar'), async (req, res) => {
+    req.user.avatar = req.file.buffer;
+    await req.user.save();
     res.send();
 }, (error, req, res, next) => {
     res.status(400).send({ error: error.message });
