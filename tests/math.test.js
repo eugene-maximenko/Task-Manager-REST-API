@@ -32,9 +32,9 @@ test('Should convert 0 C to 32 F', () => {
 
 test('Should add two numbers', (done) => {
     add(2, 3).then((sum) => {
-        expect(sum).toBe(5);
+        expect(sum).toBe(5); 
         done();
-    })
+    }) 
 })
 
 test('Should add two numbers async/await', async () => {
