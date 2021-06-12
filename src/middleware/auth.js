@@ -8,7 +8,7 @@ const auth = async (req, res, next) => {
         // The code below parses the document tokens array to find a token
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token });
 
-        if (!user) {
+        if (!user) { 
             throw new Error();
         }
 
