@@ -1,5 +1,6 @@
 const request = require('supertest');
 const app = require('../src/app');
+const { getMaxListeners } = require('../src/models/user');
 const User = require('../src/models/user');
 
 // Configure the jest
@@ -21,5 +22,19 @@ test('Should signup a new user', async () => {
         name: 'Andrew',
         email: 'andrew@example.com',
         password: 'MyPass777!'
-    }).expect(201)
+    }).expect(201);
+})
+
+test('Should login existing user', async () => {
+    await request(app).post('/users/login').send({
+        email: userOne.email,
+        password: userOne.password
+    }).expect(200);
+})
+
+test('Should not login nonexistent user', async () => {
+    await request(app).post('/users/login').send({
+        email: userOne.email,
+        password: 'thisisnotmypass'
+    }).expect(400);
 })
