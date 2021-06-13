@@ -1,5 +1,5 @@
 const { calculateTip, fahrenheitToCelsius, celsiusToFahrenheit, add } = require('../src/math');
-
+jest.setTimeout(10000)
 // calculateTip tests
 test('Should calculate total with tip', () => {
     const total = calculateTip(10, .3);
@@ -38,6 +38,6 @@ test('Should add two numbers', (done) => {
 })
 
 test('Should add two numbers async/await', async () => {
-    const sum = await add(11, 22);
+    const sum = await add(10, 22);
     expect(sum).toBe(32);
 })
