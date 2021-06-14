@@ -21,7 +21,6 @@ const userOne = {
 beforeEach(async () => {
     await User.deleteMany();
     await new User(userOne).save();
-    console.log(userOne.tokens[0].token)
 })
 
 test('Should signup a new user', async () => {
@@ -51,7 +50,27 @@ test('Should get profile for user', async () => {
         .get('/users/me')
         .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
         .send()
-        .expect(200)
+        .expect(200);
 })
 
-test('Should not get profile for unathenticated user')
+test('Should not get profile for unathenticated user', async () => {
+    await request(app)
+        .get('/users/me')
+        .send()
+        .expect(401);
+})
+
+test('Should delete account for user', async () => {
+    await request(app)
+        .delete('/users/me')
+        .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+        .send()
+        .expect(200);
+})
+
+test('Should not delete account for unauthenticated user', async () => {
+    await request(app)
+        .delete('/users/me')
+        .send()
+        .expect(401);
+})
