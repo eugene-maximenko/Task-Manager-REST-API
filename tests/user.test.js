@@ -1,7 +1,7 @@
 const request = require('supertest')
 const app = require('../src/app')
 const User = require('../src/models/user')
-const { userOneId, userOne, setupDatabase } = require('./fixtures/db')
+const { userOneId, userOne, wrongUserOne, setupDatabase } = require('./fixtures/db')
 
 beforeEach(setupDatabase)
 
@@ -105,4 +105,19 @@ test('Should not update invalid user fields', async () => {
             location: 'Philadelphia'
         })
         .expect(400)
+})
+
+// Should not sign up user with invalid name/email/password
+// I need to send post req with invalid name, then email, and then password
+// I expect to get bad req status
+// Also I expect to find null, if ask a user with this credentials
+
+test('Should not sign up user with invalid name', async () => {
+    const response = await request(app)
+        .post('/users')
+        .send({
+            name: wrongUserOne.name,
+            email: wrongUserOne.email,
+            password: wrongUserOne.password
+        }).expect(400)
 })

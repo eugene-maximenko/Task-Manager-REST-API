@@ -25,6 +25,12 @@ const userTwo = {
     }]
 }
 
+const wrongUserOne = {
+    name: 42,
+    email: 'unexistingemail',
+    password: '123f'
+}
+
 const taskOne = {
     _id: new mongoose.Types.ObjectId(),
     description: 'First task',
@@ -64,5 +70,6 @@ module.exports = {
     taskOne,
     taskTwo,
     taskThree,
+    wrongUserOne,
     setupDatabase
 }
