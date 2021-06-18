@@ -26,7 +26,7 @@ const userTwo = {
 }
 
 const wrongUserOne = {
-    name: 42,
+    name: {},
     email: 'unexistingemail',
     password: '123f'
 }

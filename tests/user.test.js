@@ -15,7 +15,7 @@ test('Should signup a new user', async () => {
     // Assert that the database was changed correctly
     const user = await User.findById(response.body.user._id)
     expect(user).not.toBeNull()
-
+    
     // Assertions about the response
     expect(response.body).toMatchObject({
         user: {
@@ -25,6 +25,16 @@ test('Should signup a new user', async () => {
         token: user.tokens[0].token
     })
     expect(user.password).not.toBe('MyPass777!')
+})
+
+test('Should not sign up user with invalid name', async () => {
+    const response = await request(app)
+        .post('/users')
+        .send({
+            name: wrongUserOne.name,
+            email: wrongUserOne.email,
+            password: wrongUserOne.password
+        }).expect(400)
 })
 
 test('Should login existing user', async () => {
@@ -107,17 +117,40 @@ test('Should not update invalid user fields', async () => {
         .expect(400)
 })
 
-// Should not sign up user with invalid name/email/password
-// I need to send post req with invalid name, then email, and then password
-// I expect to get bad req status
-// Also I expect to find null, if ask a user with this credentials
-
-test('Should not sign up user with invalid name', async () => {
-    const response = await request(app)
-        .post('/users')
+test('Should not update user if unauthenticated', async () => {
+    await request(app)
+        .patch('/users/me')
         .send({
-            name: wrongUserOne.name,
-            email: wrongUserOne.email,
-            password: wrongUserOne.password
-        }).expect(400)
+            name: 'Vasya'
+        })
+        .expect(401);
+})
+
+test('Should not update user with invalid name/email/password', async () => {
+    // invalid name
+    await request(app)
+    .patch('/users/me')
+    .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+    .send({
+        name: {}
+    })
+    .expect(400);
+
+    // invald email
+    await request(app)
+    .patch('/users/me')
+    .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+    .send({
+        email: wrongUserOne.email
+    })
+    .expect(400);
+
+    // invalid password
+    await request(app)
+    .patch('/users/me')
+    .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+    .send({
+        password: wrongUserOne.password
+    })
+    .expect(400);
 })
