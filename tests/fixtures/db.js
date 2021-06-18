@@ -52,6 +52,12 @@ const taskThree = {
     owner: userTwo._id
 }
 
+const wrongTask = {
+    description: [],
+    completed: 42,
+    owner: userOne._id
+}
+
 const setupDatabase = async () => {
     await User.deleteMany()
     await Task.deleteMany()
@@ -71,5 +77,6 @@ module.exports = {
     taskTwo,
     taskThree,
     wrongUserOne,
+    wrongTask,
     setupDatabase
 }

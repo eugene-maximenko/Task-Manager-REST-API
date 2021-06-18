@@ -9,6 +9,7 @@ const {
     taskOne,
     taskTwo,
     taskThree,
+    wrongTask,
     setupDatabase
 } = require('./fixtures/db')
 
@@ -44,4 +45,23 @@ test('Should not delete other users tasks', async () => {
         .expect(404)
     const task = await Task.findById(taskOne._id)
     expect(task).not.toBeNull()
+})
+
+// Should not create task with invalid description/completed
+test('Should not create task with invalid description/completed', async () => {
+    // invalid description
+    await request(app)
+        .post('/tasks')
+        .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+        .send({
+            description: wrongTask.description
+        }).expect(400)
+
+    // invalid completed status
+    await request(app)
+        .post('/tasks')
+        .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+        .send({
+            completed: wrongTask.completed
+        }).expect(400)
 })
