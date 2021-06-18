@@ -43,11 +43,11 @@ test('Should not delete other users tasks', async () => {
         .set('Authorization', `Bearer ${userTwo.tokens[0].token}`)
         .send()
         .expect(404)
+
     const task = await Task.findById(taskOne._id)
     expect(task).not.toBeNull()
 })
 
-// Should not create task with invalid description/completed
 test('Should not create task with invalid description/completed', async () => {
     // invalid description
     await request(app)
@@ -64,4 +64,20 @@ test('Should not create task with invalid description/completed', async () => {
         .send({
             completed: wrongTask.completed
         }).expect(400)
+})
+
+
+test('Should delete user task', async () => {
+    const response = await request(app)
+    .delete(`/tasks/${taskOne._id}`)
+    .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+    .send()
+    .expect(200)
+})
+
+test('Should not delete task if unauthenticated', async () => {
+    const response = await request(app)
+        .delete(`/tasks/${taskTwo._id}`)
+        .send()
+        .expect(401)
 })
