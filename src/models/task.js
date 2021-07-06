@@ -15,13 +15,15 @@ const taskSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
+
+        // Configurate relationship with user 
         ref: 'User'
     }
 }, {
     timestamps: true
 })
 
-// Create task model with using schema
+// Create task model using schema
 const Task = mongoose.model('Task', taskSchema);
 
 module.exports = Task;
