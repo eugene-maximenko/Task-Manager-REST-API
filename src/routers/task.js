@@ -4,22 +4,32 @@ const User = require('../models/user');
 const auth = require('../middleware/auth');
 const router = new express.Router();
 
+// Add new task
 router.post('/tasks', auth, async (req, res) => {
+
+    // Create new task
     const task = new Task({
         ...req.body,
         owner: req.user._id
     });
 
     try {
+        
+        // Save task
         await task.save();
+
+        // Set the status and send response
         res.status(201).send(task);
+
     } catch (error) {
         res.status(400).send(error);
     }
 })
 
-
+// Get all tasks of current user
 router.get('/tasks', auth, async (req, res) => {
+
+    // 
     const match = {};
     const sort = {}
 
