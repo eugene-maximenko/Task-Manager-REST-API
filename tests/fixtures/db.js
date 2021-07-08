@@ -3,7 +3,10 @@ const jwt = require('jsonwebtoken')
 const User = require('../../src/models/user')
 const Task = require('../../src/models/task')
 
+// Create new ID for userOne
 const userOneId = new mongoose.Types.ObjectId()
+
+// Create userOne
 const userOne = {
     _id: userOneId,
     name: 'Mike',
@@ -14,7 +17,10 @@ const userOne = {
     }]
 }
 
+// Create new ID for userTwo
 const userTwoId = new mongoose.Types.ObjectId()
+
+// Create userTwo
 const userTwo = {
     _id: userTwoId,
     name: 'Jess',
@@ -25,12 +31,14 @@ const userTwo = {
     }]
 }
 
+// Create a wrong user one
 const wrongUserOne = {
     name: {},
     email: 'unexistingemail',
     password: '123f'
 }
 
+// Create first task
 const taskOne = {
     _id: new mongoose.Types.ObjectId(),
     description: 'First task',
@@ -38,6 +46,7 @@ const taskOne = {
     owner: userOne._id
 }
 
+// Create second task
 const taskTwo = {
     _id: new mongoose.Types.ObjectId(),
     description: 'Second task',
@@ -45,6 +54,7 @@ const taskTwo = {
     owner: userOne._id
 }
 
+// Create third task
 const taskThree = {
     _id: new mongoose.Types.ObjectId(),
     description: 'Third task',
@@ -52,6 +62,7 @@ const taskThree = {
     owner: userTwo._id
 }
 
+// Create fourth task
 const wrongTask = {
     description: [],
     completed: 42,
@@ -59,10 +70,16 @@ const wrongTask = {
 }
 
 const setupDatabase = async () => {
+
+    // Delete all users
     await User.deleteMany()
     await Task.deleteMany()
+    
+    // Add new users
     await new User(userOne).save()
     await new User(userTwo).save()
+
+    // Add new tasks
     await new Task(taskOne).save()
     await new Task(taskTwo).save()
     await new Task(taskThree).save()
