@@ -15,7 +15,7 @@ const auth = async (req, res, next) => {
 
         // Validate data
         if (!user) {
-            throw new Error();
+            throw new Error(); 
         }
 
         // Set the request parameters
