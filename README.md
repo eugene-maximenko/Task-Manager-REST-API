@@ -4,7 +4,9 @@ Task Manager is a REST API I created during Node.js course by [Andrew Mead](http
 
 ## Getting Started
 
-Download this repository on your machine and the soft listed below and run
+Download this repository on your machine and the soft listed below and run. 
+
+Also, you would need a config directory with **dev.env** and **test.env** files. Inside of them set the PORT, SENDGRID_API_KEY, MONGODB_URL and JWT_SECRET
 
 ### Prerequisites
 
@@ -15,10 +17,4 @@ Nice to have on your machine the next software:
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
-
-### Sample Tests
-
-Explain what these tests test and why
-
-    Give an example
+Run the command `npm tun test`
