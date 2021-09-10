@@ -6,7 +6,9 @@ Task Manager is a REST API I created during Node.js course by [Andrew Mead](http
 
 Download this repository on your machine and the soft listed below and run. 
 
-Also, you would need a config directory with **dev.env** and **test.env** files. Inside of them set the PORT, SENDGRID_API_KEY, MONGODB_URL and JWT_SECRET
+Also, you would need a config directory with **dev.env** and **test.env** files. Inside of them set the PORT, SENDGRID_API_KEY, MONGODB_URL and JWT_SECRET.
+
+All the endpoints for task resourses are described in [task.js](src/routers/task.js) and for user resourses in [user.js](src/routers/user.js).
 
 ### Prerequisites
 
