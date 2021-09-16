@@ -86,7 +86,7 @@ userSchema.methods.toJSON = function () {
     return userObject;
 }
 
-// Create a methos for generating auth token
+// Create a method for generating auth token
 userSchema.methods.generateAuthToken = async function () {
     const user = this;
 
@@ -126,7 +126,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
 userSchema.pre('save', async function (next) {
     const user = this;
 
-    // Update user password if it was podified
+    // Update user password if it was modified
     if (user.isModified('password')) {
         user.password = await bcrypt.hash(user.password, 8);
     }
