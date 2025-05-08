@@ -1,6 +1,13 @@
 # Task Manager
 
-Task Manager is a REST API I created during Node.js course by [Andrew Mead](https://github.com/andrewjmead). You can address to users and tasks resourses to play with GET, POST, DELETE and PATCH requests.
+
+- You can address to users and tasks resourses to play with GET, POST, DELETE and PATCH requests.
+- You can send emails to users
+- Authorization + Authentication
+- I use MongoDB to store users and tasks
+- Avatar uploading
+
+
 
 ## Getting Started
 
